@@ -1,0 +1,134 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="md_positive_color">@color/colorPrimaryDark</item>
+        <item name="md_neutral_color">@color/ash</item>
+        <item name="md_negative_color">@color/ash</item>
+        <item name="md_divider_color">@color/ash</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        &lt;!&ndash;
+            All dialogs will default to Theme.DARK with this set to true.
+        &ndash;&gt;
+        <item name="md_dark_theme">true</item>
+
+        &lt;!&ndash;
+            This overrides the default dark or light dialog background color.
+            Note that if you use a dark color here, you should set md_dark_theme to
+            true so text and selectors look visible
+        &ndash;&gt;
+        <item name="md_background_color">#37474F</item>
+
+        &lt;!&ndash;
+            Applies an icon next to the title in all dialogs.
+        &ndash;&gt;
+        <item name="md_icon">@drawable/ic_launcher</item>
+
+        &lt;!&ndash;
+            Limit icon to a max size.
+        &ndash;&gt;
+        <attr name="md_icon_max_size" format="dimension" />
+
+        &lt;!&ndash;
+            Limit the icon to a default max size (48dp).
+        &ndash;&gt;
+        <attr name="md_icon_limit_icon_to_default_size" format="boolean" />
+
+        &lt;!&ndash;
+            By default, the title text color is derived from the
+            ?android:textColorPrimary system attribute.
+        &ndash;&gt;
+        <item name="md_title_color">#E91E63</item>
+
+
+        &lt;!&ndash;
+            By default, the content text color is derived from the
+            ?android:textColorSecondary system attribute.
+        &ndash;&gt;
+        <item name="md_content_color">#9C27B0</item>
+
+        &lt;!&ndash;
+            By default, the link color is derived from the colorAccent attribute
+            of AppCompat or android:colorAccent attribute of the Material theme.
+        &ndash;&gt;
+        <item name="md_link_color">#673AB7</item>
+
+        &lt;!&ndash;
+            By default, the positive action text color is derived
+            from the colorAccent attribute of AppCompat or android:colorAccent
+            attribute of the Material theme.
+        &ndash;&gt;
+        <item name="md_positive_color">#673AB7</item>
+
+        &lt;!&ndash;
+            By default, the neutral action text color is derived
+            from the colorAccent attribute of AppCompat or android:colorAccent
+            attribute of the Material theme.
+        &ndash;&gt;
+        <item name="md_neutral_color">#673AB7</item>
+
+        &lt;!&ndash;
+            By default, the negative action text color is derived
+            from the colorAccent attribute of AppCompat or android:colorAccent
+            attribute of the Material theme.
+        &ndash;&gt;
+        <item name="md_negative_color">#673AB7</item>
+
+        &lt;!&ndash;
+            By default, a progress dialog's progress bar, check boxes, and radio buttons
+            have a color that is derived from the colorAccent attribute of AppCompat or
+            android:colorAccent attribute of the Material theme.
+        &ndash;&gt;
+        <item name="md_widget_color">#673AB7</item>
+
+        &lt;!&ndash;
+            By default, the list item text color is black for the light
+            theme and white for the dark theme.
+        &ndash;&gt;
+        <item name="md_item_color">#9C27B0</item>
+
+        &lt;!&ndash;
+            This overrides the color used for the top and bottom dividers used when
+            content is scrollable
+        &ndash;&gt;
+        <item name="md_divider_color">#E91E63</item>
+
+        &lt;!&ndash;
+            This overrides the color used for the ripple displayed on action buttons (Lollipop and above).
+            Defaults to the colorControlHighlight attribute from AppCompat OR the Material theme.
+        &ndash;&gt;
+        <item name="md_btn_ripple_color">#E91E63</item>
+        &lt;!&ndash;
+            This overrides the background selector used on the positive action button.
+        &ndash;&gt;
+        <item name="md_btn_positive_selector">@drawable/selector</item>
+
+        &lt;!&ndash;
+            This overrides the background selector used on the neutral action button.
+        &ndash;&gt;
+        <item name="md_btn_neutral_selector">@drawable/selector</item>
+
+        &lt;!&ndash;
+            This overrides the background selector used on the negative action button.
+        &ndash;&gt;
+        <item name="md_btn_negative_selector">@drawable/selector</item>
+
+    </style>-->
+
+</resources>
