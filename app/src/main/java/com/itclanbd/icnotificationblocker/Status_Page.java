@@ -114,6 +114,7 @@ public class Status_Page extends AppCompatActivity
             frag=new History_List();
         } else if (id == R.id.nav_oneclick) {
             try {
+                Log.d("One click","Remove");
                 NotificationManager nManager = ((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
                 nManager.cancelAll();
             }catch (Exception e){

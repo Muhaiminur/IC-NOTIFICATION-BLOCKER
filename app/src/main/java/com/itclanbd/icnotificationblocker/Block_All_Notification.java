@@ -50,7 +50,11 @@ public class Block_All_Notification extends NotificationListenerService {
                     .build();
             realm = Realm.getInstance(config);
             blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
-            Log.d("Check",blockList.getStatus());
+            try {
+                Log.d("Check",blockList.getStatus());
+            }catch (Exception e){
+
+            }
             if (blockList!=null){
                 if (blockList.getStatus().equals("not_at_all")){
 
