@@ -22,8 +22,8 @@ android {
         applicationId "com.itclanbd.icnotificationblocker"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,6 +33,17 @@ android {
         }
     }
 }
+
+//Signing configurations for build variants "release"
+/*signingConfigs {
+    release {
+        storeFile file("D:/Itclanbd_Project/SPACEBAR/SIGNED APK/space_users_sign.jks")
+        storePassword "12301019"
+        keyAlias "key0"
+        keyPassword "12301019"
+    }
+}*/
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -55,5 +66,5 @@ dependencies {
     }
     implementation 'com.facebook.android:audience-network-sdk:4.99.1'
     implementation 'com.google.android.gms:play-services-ads:15.0.0'
-
+    implementation 'com.android.support:support-compat:27.1.1'
 }

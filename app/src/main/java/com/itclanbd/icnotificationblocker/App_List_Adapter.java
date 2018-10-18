@@ -76,84 +76,57 @@ public class App_List_Adapter extends RecyclerView.Adapter<App_List_Adapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
-        ApkInfoExtractor apkInfoExtractor = new ApkInfoExtractor(context1);
+        try {
+            ApkInfoExtractor apkInfoExtractor = new ApkInfoExtractor(context1);
 
 
-        final String ApplicationPackageName = (String) stringList.get(position);
-        final String ApplicationLabelName = apkInfoExtractor.GetAppName(ApplicationPackageName);
-        Drawable drawable = apkInfoExtractor.getAppIconByPackageName(ApplicationPackageName);
+            final String ApplicationPackageName = (String) stringList.get(position);
+            final String ApplicationLabelName = apkInfoExtractor.GetAppName(ApplicationPackageName);
+            Drawable drawable = apkInfoExtractor.getAppIconByPackageName(ApplicationPackageName);
 
-        holder.app_name.setText(ApplicationLabelName);
+            holder.app_name.setText(ApplicationLabelName);
 
-        //viewHolder.textView_App_Package_Name.setText(ApplicationPackageName);
+            //viewHolder.textView_App_Package_Name.setText(ApplicationPackageName);
 
-        holder.app_icon.setImageDrawable(drawable);
+            holder.app_icon.setImageDrawable(drawable);
 
-        //Adding click listener on CardView to open clicked application directly from here .
+            //Adding click listener on CardView to open clicked application directly from here .
 
-        holder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                blockList=realm.where(BlockList.class).equalTo("package_name", ApplicationPackageName).findFirst();
-                realm.beginTransaction();
-                if(isChecked){
-                    // If the switch button is on
-                    if (blockList==null){
-                        BlockList blockList_new=realm.createObject(BlockList.class);
-                        blockList_new.setPackage_name(ApplicationPackageName);
-                        blockList_new.setStatus("ok");
-                    }else {
-                        blockList.setStatus("ok");
-                    }
-                } else {
-                    // If the switch button is off
-                    if (blockList==null){
-                        BlockList blockList_new=realm.createObject(BlockList.class);
-                        blockList_new.setPackage_name(ApplicationPackageName);
-                        blockList_new.setStatus("okok");
-                    }else {
-                        blockList.setStatus("okok");
-                    }
-                }
-                realm.commitTransaction();
-            }
-        });
-        BlockList blockList2=realm.where(BlockList.class).equalTo("package_name", ApplicationPackageName).findFirst();
-        if (blockList2!=null&& blockList2.getStatus().equals("ok")&&holder.app_name.getText().equals(ApplicationLabelName)){
-            Log.d("switch",blockList2.getPackage_name());
-            holder.status.setChecked(true);
-        }
-        /*holder.status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.status.isChecked()){
+            holder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     blockList=realm.where(BlockList.class).equalTo("package_name", ApplicationPackageName).findFirst();
                     realm.beginTransaction();
-                    if (blockList==null){
-                        BlockList blockList_new=realm.createObject(BlockList.class);
-                        blockList_new.setPackage_name(ApplicationPackageName);
-                        blockList_new.setStatus("ok");
-                    }else {
-                        blockList.setStatus("ok");
+                    if(isChecked){
+                        // If the switch button is on
+                        if (blockList==null){
+                            BlockList blockList_new=realm.createObject(BlockList.class);
+                            blockList_new.setPackage_name(ApplicationPackageName);
+                            blockList_new.setStatus("ok");
+                        }else {
+                            blockList.setStatus("ok");
+                        }
+                    } else {
+                        // If the switch button is off
+                        if (blockList==null){
+                            BlockList blockList_new=realm.createObject(BlockList.class);
+                            blockList_new.setPackage_name(ApplicationPackageName);
+                            blockList_new.setStatus("okok");
+                        }else {
+                            blockList.setStatus("okok");
+                        }
                     }
                     realm.commitTransaction();
-                }else {
-
                 }
+            });
+            BlockList blockList2=realm.where(BlockList.class).equalTo("package_name", ApplicationPackageName).findFirst();
+            if (blockList2!=null&& blockList2.getStatus().equals("ok")&&holder.app_name.getText().equals(ApplicationLabelName)){
+                Log.d("switch",blockList2.getPackage_name());
+                holder.status.setChecked(true);
             }
-        });*/
-        /*String app = stringList.get(position);
-        Log.d("check2",app+"");
-        holder.app_name.setText(app);*/
-
-        /*RealmResults<BlockList>blockListRealmResults=realm.where(BlockList.class).findAll();
-        if (blockListRealmResults.size()>0){
-            for (BlockList b:blockListRealmResults){
-                if (b.getStatus().equals("ok")){
-
-                }
-            }
-        }*/
+        } catch (Exception e) {
+            Log.d("Error Line Number", Log.getStackTraceString(e));
+        }
     }
 
     @Override

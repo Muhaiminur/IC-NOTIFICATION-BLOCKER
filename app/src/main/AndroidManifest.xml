@@ -44,6 +44,7 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+        <service android:name=".Database_Update"></service>
     </application>
 
 </manifest>

@@ -41,43 +41,47 @@ public class Block_All_Notification extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn){
         Log.d("Package Name",sbn.getPackageName());
-        try {
-            Realm.init(getApplicationContext());
-            RealmConfiguration config = new RealmConfiguration.Builder()
-                    .name("notification.realm")
-                    .schemaVersion(1)
-                    .deleteRealmIfMigrationNeeded()
-                    .build();
-            realm = Realm.getInstance(config);
-            blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
+        if (!getApplicationContext().getPackageName().equals(sbn.getPackageName())||sbn.getId()==77){
             try {
-                Log.d("Check",blockList.getStatus());
-            }catch (Exception e){
-
-            }
-            if (blockList!=null){
-                if (blockList.getStatus().equals("not_at_all")){
-
-                }else if (blockList.getStatus().equals("no")){
-                    blockList=realm.where(BlockList.class).equalTo("package_name", sbn.getPackageName()).findFirst();
-                    if (blockList!=null && blockList.getStatus().equals("okok")){
-                        Log.d("Check1","no cancel");
-                    }else {
-                        Log.d("Check2","cancel particular");
-                        cancelAllNotifications();
-                    }
-                }else if (blockList.getStatus().equals("yes")){
-                    cancelAllNotifications();
-                }else {
+                Realm.init(getApplicationContext());
+                RealmConfiguration config = new RealmConfiguration.Builder()
+                        .name("notification.realm")
+                        .schemaVersion(1)
+                        .deleteRealmIfMigrationNeeded()
+                        .build();
+                realm = Realm.getInstance(config);
+                blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
+                try {
+                    Log.d("Check",blockList.getStatus());
+                }catch (Exception e){
 
                 }
+                if (blockList!=null){
+                    if (blockList.getStatus().equals("not_at_all")){
+
+                    }else if (blockList.getStatus().equals("no")){
+                        blockList=realm.where(BlockList.class).equalTo("package_name", sbn.getPackageName()).findFirst();
+                        if (blockList!=null && blockList.getStatus().equals("okok")){
+                            Log.d("Check1","no cancel");
+                        }else {
+                            Log.d("Check2","cancel particular");
+                            cancelAllNotifications();
+                        }
+                    }else if (blockList.getStatus().equals("yes")){
+                        cancelAllNotifications();
+                    }else {
+
+                    }
+                }
+            }catch (Exception e){
+                Log.d("Error Line Number", Log.getStackTraceString(e));
+            }finally {
+                if (realm!=null){
+                    realm.close();
+                }
             }
-        }catch (Exception e){
-            Log.d("Error Line Number", Log.getStackTraceString(e));
-        }finally {
-            if (realm!=null){
-                realm.close();
-            }
+        }else {
+            Log.d("Notification Removed","FROM MOTHER");
         }
         //cancelAllNotifications();
     }
