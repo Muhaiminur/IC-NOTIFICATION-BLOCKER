@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
 import android.service.notification.NotificationListenerService;
@@ -182,6 +183,7 @@ public class Block_All_Notification extends NotificationListenerService {
             }
             Log.d(TAG, "ensureCollectorRunning: collector not running, reviving...");
             toggleNotificationListenerService();
+            tryReconnectService();
         }catch (Exception e){
             Log.d("Error Line Number", Log.getStackTraceString(e));
         }
@@ -218,4 +220,14 @@ public class Block_All_Notification extends NotificationListenerService {
         }*/
     }
 
+    public void tryReconnectService() {
+        toggleNotificationListenerService();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            ComponentName componentName =
+                    new ComponentName(getApplicationContext(), Block_All_Notification.class);
+
+            //It say to Notification Manager RE-BIND your service to listen notifications again inmediatelly!
+            requestRebind(componentName);
+        }
+    }
 }

@@ -37,7 +37,7 @@
             android:value="b8a9b595ae32f4c08bbd12a6afcb0340bddacd5e" />
 
         <service
-            android:name=".Block_All_Notification"
+            android:name="com.itclanbd.icnotificationblocker.Block_All_Notification"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>

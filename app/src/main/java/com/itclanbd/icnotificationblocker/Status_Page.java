@@ -59,6 +59,8 @@ public class Status_Page extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        Realm.init(this);
+        Notification_permission_check();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -66,8 +68,7 @@ public class Status_Page extends AppCompatActivity
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.sacreenarea, new On_Off_Page());
         tx.commit();
-        Realm.init(this);
-        Notification_permission_check();
+
         //applyStatusBar("NOTIFICATION BLOCKER",112);
     }
 
@@ -268,7 +269,7 @@ public class Status_Page extends AppCompatActivity
 
             builder = new NotificationCompat.Builder(this);
 
-            intent = new Intent(this, MainActivity.class);
+            intent = new Intent(this, Status_Page.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
