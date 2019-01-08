@@ -3,6 +3,7 @@ package com.itclanbd.icnotificationblocker;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +49,7 @@ public class On_Off_Page extends Fragment {
     private RecyclerView recyclerView;
     private App_List_Adapter mAdapter;
     LayoutInflater inflater1;
+    TextView check_page;
 
 
 
@@ -80,6 +85,8 @@ public class On_Off_Page extends Fragment {
             realm = Realm.getInstance(config);
             on=view.findViewById(R.id.on);
             off=view.findViewById(R.id.off);
+            check_page=view.findViewById(R.id.check_tutorial);
+
 
             on.setTag("STOP");
             blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
@@ -143,6 +150,24 @@ public class On_Off_Page extends Fragment {
             });
 
             loadNativeAd();
+
+            //che
+
+            //register work
+            String myString = "If App is not working, Click here";
+            //int i1 = myString.indexOf("S");
+            //int i2 = myString.indexOf("p");
+            check_page.setMovementMethod(LinkMovementMethod.getInstance());
+            check_page.setText(myString, TextView.BufferType.SPANNABLE);
+            Spannable mySpannable = (Spannable)check_page.getText();
+            ClickableSpan myClickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    startActivity(new Intent(getContext(),Tutorial_Page.class));
+                }
+            };
+            mySpannable.setSpan(myClickableSpan, 24, 34, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         }catch (Exception e){
             Log.d("Error Line Number",Log.getStackTraceString(e));
             if (realm!=null){

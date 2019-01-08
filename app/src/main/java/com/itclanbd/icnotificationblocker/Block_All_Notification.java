@@ -42,7 +42,7 @@ public class Block_All_Notification extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn){
         Log.d("Package Name",sbn.getPackageName());
-        if (!getApplicationContext().getPackageName().equals(sbn.getPackageName())||sbn.getId()==77){
+        if (/*!getApplicationContext().getPackageName().equals(sbn.getPackageName())||sbn.getId()==77*/true){
             try {
                 Realm.init(getApplicationContext());
                 RealmConfiguration config = new RealmConfiguration.Builder()

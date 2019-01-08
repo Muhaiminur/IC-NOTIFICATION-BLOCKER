@@ -20,6 +20,10 @@
             android:id="@+id/nav_oneclick"
             android:icon="@drawable/ic_click"
             android:title="One Click Remove" />
+        <item
+            android:id="@+id/nav_tutorial"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="If Not working" />
     </group>
 
     <item android:title="Communicate">

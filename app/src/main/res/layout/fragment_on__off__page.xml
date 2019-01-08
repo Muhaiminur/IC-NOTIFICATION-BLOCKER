@@ -18,7 +18,14 @@
             android:layout_gravity="center"
             android:layout_weight="1.3"
             android:orientation="vertical">
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="If App not working, Click here"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/check_tutorial"
+                android:textSize="18sp"/>
         </LinearLayout>
 
         <LinearLayout

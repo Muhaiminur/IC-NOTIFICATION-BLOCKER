@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -50,11 +52,11 @@ public class Status_Page extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_status__page);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -62,7 +64,7 @@ public class Status_Page extends AppCompatActivity
         Realm.init(this);
         Notification_permission_check();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
@@ -70,11 +72,18 @@ public class Status_Page extends AppCompatActivity
         tx.commit();
 
         //applyStatusBar("NOTIFICATION BLOCKER",112);
+
+        if (isNotificationServiceRunning()){
+            Log.d("Notification","Available");
+        }else {
+            Log.d("Notification","NOT Available");
+            //startActivity(new Intent(Status_Page.this,Tutorial_Page.class));
+        }
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -177,6 +186,8 @@ public class Status_Page extends AppCompatActivity
             // notificationId is a unique int for each notification that you must define
             notificationManager.notify(NOTIFY_ID, mBuilder.build());*/
             createNotification("IC NOTIFICATION BLOCKER");
+        }else if (id == R.id.nav_tutorial) {
+            startActivity(new Intent(Status_Page.this,Tutorial_Page.class));
         }
         if(frag!=null){
             FragmentManager fragmentManager=getSupportFragmentManager();
@@ -186,7 +197,7 @@ public class Status_Page extends AppCompatActivity
         }
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -198,12 +209,13 @@ public class Status_Page extends AppCompatActivity
             }else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Enable Notification Access")
-                        .setMessage("Enable it otherwise your report wont submit..")
+                        .setMessage("Enable it otherwise Notification Blocker Will not Work")
                         .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
                             }
-                        }).show();
+                        })
+                        .setCancelable(false).show();
                 Log.d("Access","False");
             }
         }catch (Exception e){
@@ -358,5 +370,13 @@ public class Status_Page extends AppCompatActivity
         Notification notification = mBuilder.build();
         notification.flags = Notification.FLAG_NO_CLEAR|Notification.FLAG_ONGOING_EVENT;
         notifManager.notify(11, notification);
+    }
+
+
+    private boolean isNotificationServiceRunning() {
+        ContentResolver contentResolver = getContentResolver();
+        String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
+        String packageName = getPackageName();
+        return enabledNotificationListeners != null && enabledNotificationListeners.contains(packageName);
     }
 }

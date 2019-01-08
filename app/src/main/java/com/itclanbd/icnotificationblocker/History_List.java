@@ -54,7 +54,7 @@ public class History_List extends Fragment {
     private List<UnifiedNativeAd> mNativeAds = new ArrayList<>();
     List<Object> mRecyclerViewItems = new ArrayList<>();
 
-    List<String> stringList=new ArrayList<String>();;
+    List<String> stringList=new ArrayList<String>();
     List<String> final_app_list=new ArrayList<String>();
     RealmResults<Notification_History> notification_histories;
     private Realm realm;

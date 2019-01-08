@@ -293,13 +293,13 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
         NativeAdViewHolder(View itemView) {
             super(itemView);
             this.container = itemView;
-            adIconView = (AdIconView) itemView.findViewById(R.id.adIconView);
-            tvAdTitle = (TextView) itemView.findViewById(R.id.tvAdTitle);
-            tvAdBody = (TextView) itemView.findViewById(R.id.tvAdBody);
-            btnCTA = (Button) itemView.findViewById(R.id.btnCTA);
-            adChoicesContainer = (LinearLayout) itemView.findViewById(R.id.adChoicesContainer);
-            mediaView = (MediaView) itemView.findViewById(R.id.mediaView);
-            sponsorLabel = (TextView) itemView.findViewById(R.id.sponsored_label);
+            adIconView = itemView.findViewById(R.id.adIconView);
+            tvAdTitle = itemView.findViewById(R.id.tvAdTitle);
+            tvAdBody = itemView.findViewById(R.id.tvAdBody);
+            btnCTA = itemView.findViewById(R.id.btnCTA);
+            adChoicesContainer = itemView.findViewById(R.id.adChoicesContainer);
+            mediaView = itemView.findViewById(R.id.mediaView);
+            sponsorLabel = itemView.findViewById(R.id.sponsored_label);
         }
     }
 }

@@ -88,7 +88,7 @@ public class History_List_Adapter extends RecyclerView.Adapter<History_List_Adap
         ApkInfoExtractor apkInfoExtractor = new ApkInfoExtractor(context1);
 
 
-        final String ApplicationPackageName = (String) final_app_list.get(position);
+        final String ApplicationPackageName = final_app_list.get(position);
         final String ApplicationLabelName = apkInfoExtractor.GetAppName(ApplicationPackageName);
         Drawable drawable = apkInfoExtractor.getAppIconByPackageName(ApplicationPackageName);
 

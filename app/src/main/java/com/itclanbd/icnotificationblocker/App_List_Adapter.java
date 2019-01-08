@@ -80,7 +80,7 @@ public class App_List_Adapter extends RecyclerView.Adapter<App_List_Adapter.MyVi
             ApkInfoExtractor apkInfoExtractor = new ApkInfoExtractor(context1);
 
 
-            final String ApplicationPackageName = (String) stringList.get(position);
+            final String ApplicationPackageName = stringList.get(position);
             final String ApplicationLabelName = apkInfoExtractor.GetAppName(ApplicationPackageName);
             Drawable drawable = apkInfoExtractor.getAppIconByPackageName(ApplicationPackageName);
 
