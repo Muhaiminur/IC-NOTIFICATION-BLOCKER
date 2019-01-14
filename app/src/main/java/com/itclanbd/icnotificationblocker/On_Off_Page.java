@@ -130,22 +130,26 @@ public class On_Off_Page extends Fragment {
 
             off.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    off.setTextColor(getResources().getColor(R.color.white));
-                    off.setBackgroundResource(R.drawable.left_on);
-                    on.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    on.setBackgroundResource(R.drawable.right_off);
-                    on.setTag("STOP");
-                    Snackbar.make(view, "Ending Notification Block", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                    blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
-                    realm.beginTransaction();
-                    if (blockList==null){
-                        BlockList blockList_new=realm.createObject(BlockList.class);
-                        blockList_new.setPackage_name("BLOCK_ALL");
-                        blockList_new.setStatus("not_at_all");
-                    }else {
-                        blockList.setStatus("not_at_all");
+                    try {
+                        off.setTextColor(getResources().getColor(R.color.white));
+                        off.setBackgroundResource(R.drawable.left_on);
+                        on.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                        on.setBackgroundResource(R.drawable.right_off);
+                        on.setTag("STOP");
+                        Snackbar.make(view, "Ending Notification Block", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                        blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
+                        realm.beginTransaction();
+                        if (blockList==null){
+                            BlockList blockList_new=realm.createObject(BlockList.class);
+                            blockList_new.setPackage_name("BLOCK_ALL");
+                            blockList_new.setStatus("not_at_all");
+                        }else {
+                            blockList.setStatus("not_at_all");
+                        }
+                        realm.commitTransaction();
+                    } catch (Exception e) {
+                        Log.d("Error Line Number", Log.getStackTraceString(e));
                     }
-                    realm.commitTransaction();
                 }
             });
 
