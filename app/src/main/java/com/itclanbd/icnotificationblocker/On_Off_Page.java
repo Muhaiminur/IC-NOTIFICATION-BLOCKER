@@ -158,9 +158,9 @@ public class On_Off_Page extends Fragment {
             //che
 
             //register work
-            String myString = "If App is not working, Click here";
-            //int i1 = myString.indexOf("S");
-            //int i2 = myString.indexOf("p");
+            String myString = "If App is not working, Click here.";
+            int i1 = myString.indexOf("C");
+            int i2 = myString.lastIndexOf(".");
             check_page.setMovementMethod(LinkMovementMethod.getInstance());
             check_page.setText(myString, TextView.BufferType.SPANNABLE);
             Spannable mySpannable = (Spannable)check_page.getText();
@@ -170,7 +170,7 @@ public class On_Off_Page extends Fragment {
                     startActivity(new Intent(getContext(),Tutorial_Page.class));
                 }
             };
-            mySpannable.setSpan(myClickableSpan, 24, 34, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mySpannable.setSpan(myClickableSpan, i1, i2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         }catch (Exception e){
             Log.d("Error Line Number",Log.getStackTraceString(e));
