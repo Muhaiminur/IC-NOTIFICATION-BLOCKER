@@ -43,7 +43,6 @@ public class History_List extends Fragment {
     private History_List_Adapter2 mAdapter;
 
 
-
     private AdView mAdView;
 
     // The number of native ads to load.
@@ -54,8 +53,8 @@ public class History_List extends Fragment {
     private List<UnifiedNativeAd> mNativeAds = new ArrayList<>();
     List<Object> mRecyclerViewItems = new ArrayList<>();
 
-    List<String> stringList=new ArrayList<String>();
-    List<String> final_app_list=new ArrayList<String>();
+    List<String> stringList = new ArrayList<String>();
+    List<String> final_app_list = new ArrayList<String>();
     RealmResults<Notification_History> notification_histories;
     private Realm realm;
 
@@ -76,24 +75,24 @@ public class History_List extends Fragment {
                         .deleteRealmIfMigrationNeeded()
                         .build();
                 realm = Realm.getInstance(config);
-                notification_histories=realm.where(Notification_History.class).findAll().sort("notification_count", Sort.DESCENDING);
-                for (Notification_History n:notification_histories){
+                notification_histories = realm.where(Notification_History.class).findAll().sort("notification_count", Sort.DESCENDING);
+                for (Notification_History n : notification_histories) {
                     final_app_list.add(n.getApkname());
                 }
-                for (Object s:stringList){
-                    if(!final_app_list.contains(s)){
+                for (Object s : stringList) {
+                    if (!final_app_list.contains(s)) {
                         final_app_list.add((String) s);
                     }
                 }
-            }catch (Exception e){
-                Log.d("Error Line Number",Log.getStackTraceString(e));
-                if (realm!=null){
+            } catch (Exception e) {
+                Log.d("Error Line Number", Log.getStackTraceString(e));
+                if (realm != null) {
                     realm.close();
                 }
-            }finally {
+            } finally {
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -102,11 +101,11 @@ public class History_List extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_history__list, container, false);
+        view = inflater.inflate(R.layout.fragment_history__list, container, false);
         try {
             mRecyclerViewItems.addAll(final_app_list);
             MobileAds.initialize(getActivity(), getString(R.string.admob_app_id));
-            recyclerView =view.findViewById(R.id.history_recycler);
+            recyclerView = view.findViewById(R.id.history_recycler);
             recyclerView.setFocusable(false);
             recyclerView.setHasFixedSize(true);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -116,7 +115,7 @@ public class History_List extends Fragment {
             //mAdapter= new History_List_Adapter(getActivity(), new ApkInfoExtractor(getActivity()).GetAllInstalledApkInfo());
             //recyclerView.setAdapter(mAdapter);
 
-            mAdapter= new History_List_Adapter2(getActivity().getApplication(),mRecyclerViewItems);
+            mAdapter = new History_List_Adapter2(getActivity().getApplication(), mRecyclerViewItems);
             recyclerView.setAdapter(mAdapter);
             //loadNativeAds();
 
@@ -141,12 +140,12 @@ public class History_List extends Fragment {
                 public void onAdLoaded(Ad ad) {
                     //int c=4;
                     mRecyclerViewItems.add(4, ad);
-                    Log.d("Admob","Not working 3");
-                    if (mRecyclerViewItems.size()>0){
-                        Log.d("Admob",mRecyclerViewItems.size()+"size");
+                    Log.d("Admob", "Not working 3");
+                    if (mRecyclerViewItems.size() > 0) {
+                        Log.d("Admob", mRecyclerViewItems.size() + "size");
                         //mRecyclerViewItems.add(8, ad);
-                        for (int c=3;c<mRecyclerViewItems.size();c=c+10){
-                            Log.d("Admob","Not working");
+                        for (int c = 3; c < mRecyclerViewItems.size(); c = c + 10) {
+                            Log.d("Admob", "Not working");
                             mRecyclerViewItems.add(c, ad);
                         }
 
@@ -168,7 +167,7 @@ public class History_List extends Fragment {
 
             nativeAd.loadAd();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
         }
 
@@ -184,7 +183,9 @@ public class History_List extends Fragment {
         super.onPause();
     }
 
-    /** Called when returning to the activity */
+    /**
+     * Called when returning to the activity
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -193,7 +194,9 @@ public class History_List extends Fragment {
         }
     }
 
-    /** Called before the activity is destroyed */
+    /**
+     * Called before the activity is destroyed
+     */
     @Override
     public void onDestroy() {
         if (mAdView != null) {

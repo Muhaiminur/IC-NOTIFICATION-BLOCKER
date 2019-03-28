@@ -21,6 +21,7 @@ public class fragment_about extends Fragment {
 
     View view;
     TextView url;
+
     public fragment_about() {
         // Required empty public constructor
     }
@@ -30,9 +31,9 @@ public class fragment_about extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_fragment_about, container, false);
+        view = inflater.inflate(R.layout.fragment_fragment_about, container, false);
         try {
-            url=view.findViewById(R.id.url);
+            url = view.findViewById(R.id.url);
             url.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     try {
@@ -43,11 +44,12 @@ public class fragment_about extends Fragment {
                         }
                     } catch (ActivityNotFoundException e) {
                         Toast.makeText(getContext(), "No application can handle this request."
-                                + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                                + " Please install a webbrowser", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 }
-            });}catch (Exception e){
+            });
+        } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
         }
         return view;

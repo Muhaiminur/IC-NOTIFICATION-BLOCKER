@@ -40,9 +40,9 @@ public class Block_All_Notification extends NotificationListenerService {
     }
 
     @Override
-    public void onNotificationPosted(StatusBarNotification sbn){
-        Log.d("Package Name",sbn.getPackageName());
-        if (/*!getApplicationContext().getPackageName().equals(sbn.getPackageName())||sbn.getId()==77*/true){
+    public void onNotificationPosted(StatusBarNotification sbn) {
+        Log.d("Package Name", sbn.getPackageName());
+        if (/*!getApplicationContext().getPackageName().equals(sbn.getPackageName())||sbn.getId()==77*/true) {
             try {
                 Realm.init(getApplicationContext());
                 RealmConfiguration config = new RealmConfiguration.Builder()
@@ -51,45 +51,45 @@ public class Block_All_Notification extends NotificationListenerService {
                         .deleteRealmIfMigrationNeeded()
                         .build();
                 realm = Realm.getInstance(config);
-                blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
+                blockList = realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
                 try {
-                    Log.d("Check",blockList.getStatus());
-                }catch (Exception e){
+                    Log.d("Check", blockList.getStatus());
+                } catch (Exception e) {
 
                 }
-                if (blockList!=null){
-                    if (blockList.getStatus().equals("not_at_all")){
+                if (blockList != null) {
+                    if (blockList.getStatus().equals("not_at_all")) {
 
-                    }else if (blockList.getStatus().equals("no")){
-                        blockList=realm.where(BlockList.class).equalTo("package_name", sbn.getPackageName()).findFirst();
-                        if (blockList!=null && blockList.getStatus().equals("okok")){
-                            Log.d("Check1","no cancel");
-                        }else {
-                            Log.d("Check2","cancel particular");
+                    } else if (blockList.getStatus().equals("no")) {
+                        blockList = realm.where(BlockList.class).equalTo("package_name", sbn.getPackageName()).findFirst();
+                        if (blockList != null && blockList.getStatus().equals("okok")) {
+                            Log.d("Check1", "no cancel");
+                        } else {
+                            Log.d("Check2", "cancel particular");
                             cancelAllNotifications();
                         }
-                    }else if (blockList.getStatus().equals("yes")){
+                    } else if (blockList.getStatus().equals("yes")) {
                         cancelAllNotifications();
-                    }else {
+                    } else {
 
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 Log.d("Error Line Number", Log.getStackTraceString(e));
-            }finally {
-                if (realm!=null){
+            } finally {
+                if (realm != null) {
                     realm.close();
                 }
             }
-        }else {
-            Log.d("Notification Removed","FROM MOTHER");
+        } else {
+            Log.d("Notification Removed", "FROM MOTHER");
         }
         //cancelAllNotifications();
     }
 
     @Override
-    public void onNotificationRemoved(StatusBarNotification sbn){
-        Log.d("Notification Removed",sbn.getPackageName());
+    public void onNotificationRemoved(StatusBarNotification sbn) {
+        Log.d("Notification Removed", sbn.getPackageName());
         try {
             Realm.init(getApplicationContext());
             RealmConfiguration config = new RealmConfiguration.Builder()
@@ -98,20 +98,20 @@ public class Block_All_Notification extends NotificationListenerService {
                     .deleteRealmIfMigrationNeeded()
                     .build();
             realm = Realm.getInstance(config);
-            Notification_History notification_history=realm.where(Notification_History.class).equalTo("apkname", sbn.getPackageName()).findFirst();
+            Notification_History notification_history = realm.where(Notification_History.class).equalTo("apkname", sbn.getPackageName()).findFirst();
             realm.beginTransaction();
-            if (notification_history!=null){
-                notification_history.setNotification_count((Integer.parseInt(notification_history.getNotification_count())+1)+"");
-            }else if (notification_history==null){
-                Notification_History history=realm.createObject(Notification_History.class);
+            if (notification_history != null) {
+                notification_history.setNotification_count((Integer.parseInt(notification_history.getNotification_count()) + 1) + "");
+            } else if (notification_history == null) {
+                Notification_History history = realm.createObject(Notification_History.class);
                 history.setNotification_count("1");
                 history.setApkname(sbn.getPackageName());
             }
             realm.commitTransaction();
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
-        }finally {
-            if (realm!=null){
+        } finally {
+            if (realm != null) {
                 realm.close();
             }
         }
@@ -122,7 +122,7 @@ public class Block_All_Notification extends NotificationListenerService {
         super.onCreate();
         try {
             ensureCollectorRunning();
-            if (isnotificationserviceenable(getApplicationContext())){
+            if (isnotificationserviceenable(getApplicationContext())) {
                 toggleNotificationListenerService();
             }
             /*Realm.init(getApplicationContext());
@@ -132,7 +132,7 @@ public class Block_All_Notification extends NotificationListenerService {
                     .deleteRealmIfMigrationNeeded()
                     .build();
             realm = Realm.getInstance(config);*/
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
         }
     }
@@ -141,10 +141,10 @@ public class Block_All_Notification extends NotificationListenerService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
             ensureCollectorRunning();
-            if (isnotificationserviceenable(getApplicationContext())){
+            if (isnotificationserviceenable(getApplicationContext())) {
                 toggleNotificationListenerService();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
         }
         return START_STICKY;
@@ -152,19 +152,15 @@ public class Block_All_Notification extends NotificationListenerService {
     }
 
 
-
-
-
-
     //check for service is runnng
     private void ensureCollectorRunning() {
-        try{
+        try {
             ComponentName collectorComponent = new ComponentName(this, /*NotificationListenerService Inheritance*/ Block_All_Notification.class);
             Log.v(TAG, "ensureCollectorRunning collectorComponent: " + collectorComponent);
             ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
             boolean collectorRunning = false;
             List<ActivityManager.RunningServiceInfo> runningServices = manager.getRunningServices(Integer.MAX_VALUE);
-            if (runningServices == null ) {
+            if (runningServices == null) {
                 Log.w(TAG, "ensureCollectorRunning() runningServices is NULL");
                 return;
             }
@@ -184,7 +180,7 @@ public class Block_All_Notification extends NotificationListenerService {
             Log.d(TAG, "ensureCollectorRunning: collector not running, reviving...");
             toggleNotificationListenerService();
             tryReconnectService();
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
         }
     }
@@ -196,22 +192,24 @@ public class Block_All_Notification extends NotificationListenerService {
             PackageManager pm = getPackageManager();
             pm.setComponentEnabledSetting(thisComponent, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             pm.setComponentEnabledSetting(thisComponent, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
         }
 
     }
-    private static boolean isnotificationserviceenable(Context context){
-        try{
-            Set<String> packaageNames= NotificationManagerCompat.getEnabledListenerPackages(context);
-            if (packaageNames.contains(context.getPackageName())){
+
+    private static boolean isnotificationserviceenable(Context context) {
+        try {
+            Set<String> packaageNames = NotificationManagerCompat.getEnabledListenerPackages(context);
+            if (packaageNames.contains(context.getPackageName())) {
                 return true;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
         }
         return false;
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

@@ -9,10 +9,10 @@
         app:showAsAction="never" />-->
     <item
         android:id="@+id/action_settings"
-        android:title="Rate App"
         android:icon="@drawable/setting"
-        app:itemIconTint="#ffffff"
         android:orderInCategory="100"
+        android:title="Rate App"
+        app:itemIconTint="#ffffff"
         app:showAsAction="always|withText"
         tools:ignore="HardcodedText" />
 </menu>

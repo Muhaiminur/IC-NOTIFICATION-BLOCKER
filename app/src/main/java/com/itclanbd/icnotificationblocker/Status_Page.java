@@ -47,6 +47,7 @@ public class Status_Page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private NotificationManager notifManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,10 +74,10 @@ public class Status_Page extends AppCompatActivity
 
         //applyStatusBar("NOTIFICATION BLOCKER",112);
 
-        if (isNotificationServiceRunning()){
-            Log.d("Notification","Available");
-        }else {
-            Log.d("Notification","NOT Available");
+        if (isNotificationServiceRunning()) {
+            Log.d("Notification", "Available");
+        } else {
+            Log.d("Notification", "NOT Available");
             //startActivity(new Intent(Status_Page.this,Tutorial_Page.class));
         }
     }
@@ -118,7 +119,7 @@ public class Status_Page extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        Fragment frag=null;
+        Fragment frag = null;
         int id = item.getItemId();
 
         if (id == R.id.nav_easy) {
@@ -128,18 +129,18 @@ public class Status_Page extends AppCompatActivity
             } catch (Exception e) {
                 Log.d("Error Line Number", Log.getStackTraceString(e));
             }
-        }else if (id == R.id.nav_home) {
+        } else if (id == R.id.nav_home) {
             // Handle the camera action
-            frag=new On_Off_Page();
+            frag = new On_Off_Page();
         } else if (id == R.id.nav_history) {
-            frag=new History_List();
+            frag = new History_List();
         } else if (id == R.id.nav_oneclick) {
             try {
-                Log.d("One click","Remove");
-                NotificationManager nManager = ((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                Log.d("One click", "Remove");
+                NotificationManager nManager = ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
                 nManager.cancelAll();
-            }catch (Exception e){
-                Log.d("Error Line Number",Log.getStackTraceString(e));
+            } catch (Exception e) {
+                Log.d("Error Line Number", Log.getStackTraceString(e));
             }
         } else if (id == R.id.nav_share) {
             try {
@@ -150,7 +151,7 @@ public class Status_Page extends AppCompatActivity
                 sAux = sAux + "https://play.google.com/store/apps/details?id=the.package.id \n\n";
                 i.putExtra(Intent.EXTRA_TEXT, sAux);
                 startActivity(Intent.createChooser(i, "choose one"));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.toString();
             }
         } else if (id == R.id.nav_rate_us) {
@@ -168,11 +169,11 @@ public class Status_Page extends AppCompatActivity
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         } else if (id == R.id.nav_abt) {
-            frag=new fragment_about();
+            frag = new fragment_about();
         } else if (id == R.id.nav_check) {
             /*int NOTIFY_ID = 1222;
             String CHANNEL_ID = "my_package_channel_1";
@@ -186,13 +187,13 @@ public class Status_Page extends AppCompatActivity
             // notificationId is a unique int for each notification that you must define
             notificationManager.notify(NOTIFY_ID, mBuilder.build());*/
             createNotification("IC NOTIFICATION BLOCKER");
-        }else if (id == R.id.nav_tutorial) {
-            startActivity(new Intent(Status_Page.this,Tutorial_Page.class));
+        } else if (id == R.id.nav_tutorial) {
+            startActivity(new Intent(Status_Page.this, Tutorial_Page.class));
         }
-        if(frag!=null){
-            FragmentManager fragmentManager=getSupportFragmentManager();
-            FragmentTransaction ft=fragmentManager.beginTransaction();
-            ft.replace(R.id.sacreenarea,frag);
+        if (frag != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.sacreenarea, frag);
             ft.commit();
         }
 
@@ -202,11 +203,11 @@ public class Status_Page extends AppCompatActivity
         return true;
     }
 
-    public void Notification_permission_check(){
+    public void Notification_permission_check() {
         try {
-            if (isNotificationAccessGiven()){
-                Log.d("Access","true");
-            }else {
+            if (isNotificationAccessGiven()) {
+                Log.d("Access", "true");
+            } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Enable Notification Access")
                         .setMessage("Enable it otherwise Notification Blocker Will not Work")
@@ -216,22 +217,22 @@ public class Status_Page extends AppCompatActivity
                             }
                         })
                         .setCancelable(false).show();
-                Log.d("Access","False");
+                Log.d("Access", "False");
             }
-        }catch (Exception e){
-            Log.d("Error Line Number",Log.getStackTraceString(e));
+        } catch (Exception e) {
+            Log.d("Error Line Number", Log.getStackTraceString(e));
         }
     }
 
     private boolean isNotificationAccessGiven() {
-        try{
+        try {
             boolean enabled = false;
             Set<String> enabledListenerPackagesSet = NotificationManagerCompat.getEnabledListenerPackages(getApplicationContext());
-            for (String string: enabledListenerPackagesSet)
+            for (String string : enabledListenerPackagesSet)
                 if (string.contains(getPackageName())) enabled = true;
             return enabled;
-        }catch (Exception e){
-            Log.d("Error Line Number",Log.getStackTraceString(e));
+        } catch (Exception e) {
+            Log.d("Error Line Number", Log.getStackTraceString(e));
         }
         return false;
     }
@@ -250,7 +251,7 @@ public class Status_Page extends AppCompatActivity
 
         if (notifManager == null) {
             notifManager =
-                    (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -321,7 +322,7 @@ public class Status_Page extends AppCompatActivity
         String description = getString(R.string.app_name); // The user-visible description of the channel.
         NotificationCompat.Builder builder;
         if (notifManager == null) {
-            notifManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            notifManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -368,7 +369,7 @@ public class Status_Page extends AppCompatActivity
                 .addAction(R.drawable.notification, "OFF", on_actionIntent)
                 .addAction(R.drawable.clear, "CLOSE", cancel_actionIntent);
         Notification notification = mBuilder.build();
-        notification.flags = Notification.FLAG_NO_CLEAR|Notification.FLAG_ONGOING_EVENT;
+        notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
         notifManager.notify(11, notification);
     }
 

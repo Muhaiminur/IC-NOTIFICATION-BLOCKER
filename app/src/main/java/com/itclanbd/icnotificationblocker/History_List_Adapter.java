@@ -25,23 +25,26 @@ import io.realm.Sort;
 
 public class History_List_Adapter extends RecyclerView.Adapter<History_List_Adapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView history_name,history_count;
+        public TextView history_name, history_count;
         public ImageView history_app_icon;
+
         public MyViewHolder(View view) {
             super(view);
             history_name = view.findViewById(R.id.history_name);
-            history_count=view.findViewById(R.id.history_number);
+            history_count = view.findViewById(R.id.history_number);
             history_app_icon = view.findViewById(R.id.history_app_icon);
         }
     }
+
     List<String> stringList;
-    List<String> final_app_list=new ArrayList<String>();
+    List<String> final_app_list = new ArrayList<String>();
     RealmResults<Notification_History> notification_histories;
     Context context1;
     private Realm realm;
     BlockList blockList;
-    History_List_Adapter(Context context, List<String> list){
-        stringList=list;
+
+    History_List_Adapter(Context context, List<String> list) {
+        stringList = list;
         context1 = context;
         try {
             RealmConfiguration config = new RealmConfiguration.Builder()
@@ -50,12 +53,12 @@ public class History_List_Adapter extends RecyclerView.Adapter<History_List_Adap
                     .deleteRealmIfMigrationNeeded()
                     .build();
             realm = Realm.getInstance(config);
-            notification_histories=realm.where(Notification_History.class).findAll().sort("notification_count",Sort.DESCENDING);
-            for (Notification_History n:notification_histories){
+            notification_histories = realm.where(Notification_History.class).findAll().sort("notification_count", Sort.DESCENDING);
+            for (Notification_History n : notification_histories) {
                 final_app_list.add(n.getApkname());
             }
-            for (String s:list){
-                if(!final_app_list.contains(s)){
+            for (String s : list) {
+                if (!final_app_list.contains(s)) {
                     final_app_list.add(s);
                 }
             }
@@ -65,15 +68,16 @@ public class History_List_Adapter extends RecyclerView.Adapter<History_List_Adap
             /*for (String s:final_app_list){
                 Log.d("Notification Count",s);
             }*/
-        }catch (Exception e){
-            Log.d("Error Line Number",Log.getStackTraceString(e));
-            if (realm!=null){
+        } catch (Exception e) {
+            Log.d("Error Line Number", Log.getStackTraceString(e));
+            if (realm != null) {
                 realm.close();
             }
-        }finally {
+        } finally {
 
         }
     }
+
     @NonNull
     @Override
     public History_List_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -96,10 +100,10 @@ public class History_List_Adapter extends RecyclerView.Adapter<History_List_Adap
 
         //viewHolder.textView_App_Package_Name.setText(ApplicationPackageName);
 
-        Notification_History history=realm.where(Notification_History.class).equalTo("apkname",ApplicationPackageName).findFirst();
-        if (history!=null){
+        Notification_History history = realm.where(Notification_History.class).equalTo("apkname", ApplicationPackageName).findFirst();
+        if (history != null) {
             holder.history_count.setText(history.getNotification_count());
-        }else {
+        } else {
             holder.history_count.setText("0");
         }
 
@@ -116,7 +120,6 @@ public class History_List_Adapter extends RecyclerView.Adapter<History_List_Adap
     public int getItemViewType(int position) {
         return position;
     }
-
 
 
 }

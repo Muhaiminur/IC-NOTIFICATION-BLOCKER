@@ -3,7 +3,9 @@ package com.itclanbd.icnotificationblocker.MODEL;
 import io.realm.RealmObject;
 
 public class BlockList extends RealmObject {
-    /** Property package_name */
+    /**
+     * Property package_name
+     */
     String package_name;
     String status;
 

@@ -42,14 +42,17 @@ public class App_List_Adapter extends RecyclerView.Adapter<App_List_Adapter.MyVi
     Context context1;
     private Realm realm;
     BlockList blockList;
-    App_List_Adapter(Context context, List<String> list){
-        stringList=list;
+
+    App_List_Adapter(Context context, List<String> list) {
+        stringList = list;
         context1 = context;
     }
+
     public App_List_Adapter(List<String> moviesList) {
         this.stringList = moviesList;
-        Log.d("check1",stringList.size()+"");
+        Log.d("check1", stringList.size() + "");
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,8 +70,8 @@ public class App_List_Adapter extends RecyclerView.Adapter<App_List_Adapter.MyVi
                     .deleteRealmIfMigrationNeeded()
                     .build();
             realm = Realm.getInstance(config);
-        }catch (Exception e){
-            Log.d("Error Line Number",Log.getStackTraceString(e));
+        } catch (Exception e) {
+            Log.d("Error Line Number", Log.getStackTraceString(e));
         }
 
         return new MyViewHolder(itemView);
@@ -95,33 +98,33 @@ public class App_List_Adapter extends RecyclerView.Adapter<App_List_Adapter.MyVi
             holder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    blockList=realm.where(BlockList.class).equalTo("package_name", ApplicationPackageName).findFirst();
+                    blockList = realm.where(BlockList.class).equalTo("package_name", ApplicationPackageName).findFirst();
                     realm.beginTransaction();
-                    if(isChecked){
+                    if (isChecked) {
                         // If the switch button is on
-                        if (blockList==null){
-                            BlockList blockList_new=realm.createObject(BlockList.class);
+                        if (blockList == null) {
+                            BlockList blockList_new = realm.createObject(BlockList.class);
                             blockList_new.setPackage_name(ApplicationPackageName);
                             blockList_new.setStatus("ok");
-                        }else {
+                        } else {
                             blockList.setStatus("ok");
                         }
                     } else {
                         // If the switch button is off
-                        if (blockList==null){
-                            BlockList blockList_new=realm.createObject(BlockList.class);
+                        if (blockList == null) {
+                            BlockList blockList_new = realm.createObject(BlockList.class);
                             blockList_new.setPackage_name(ApplicationPackageName);
                             blockList_new.setStatus("okok");
-                        }else {
+                        } else {
                             blockList.setStatus("okok");
                         }
                     }
                     realm.commitTransaction();
                 }
             });
-            BlockList blockList2=realm.where(BlockList.class).equalTo("package_name", ApplicationPackageName).findFirst();
-            if (blockList2!=null&& blockList2.getStatus().equals("ok")&&holder.app_name.getText().equals(ApplicationLabelName)){
-                Log.d("switch",blockList2.getPackage_name());
+            BlockList blockList2 = realm.where(BlockList.class).equalTo("package_name", ApplicationPackageName).findFirst();
+            if (blockList2 != null && blockList2.getStatus().equals("ok") && holder.app_name.getText().equals(ApplicationLabelName)) {
+                Log.d("switch", blockList2.getPackage_name());
                 holder.status.setChecked(true);
             }
         } catch (Exception e) {

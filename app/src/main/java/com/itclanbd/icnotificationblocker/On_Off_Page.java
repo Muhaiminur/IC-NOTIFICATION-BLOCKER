@@ -43,7 +43,7 @@ import java.util.List;
  */
 public class On_Off_Page extends Fragment {
     View view;
-    Button on,off;
+    Button on, off;
     View customView;
     Switch all_block;
     private RecyclerView recyclerView;
@@ -52,13 +52,13 @@ public class On_Off_Page extends Fragment {
     TextView check_page;
 
 
-
     //Add work
     private final String TAG = On_Off_Page.class.getSimpleName();
     private NativeAd nativeAd;
 
     private LinearLayout nativeAdContainer;
     private LinearLayout adView;
+
     public On_Off_Page() {
         // Required empty public constructor
     }
@@ -72,7 +72,7 @@ public class On_Off_Page extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_on__off__page, container, false);
+        view = inflater.inflate(R.layout.fragment_on__off__page, container, false);
         try {
             /*RealmConfiguration config = new RealmConfiguration.Builder()
                     .deleteRealmIfMigrationNeeded()
@@ -83,15 +83,15 @@ public class On_Off_Page extends Fragment {
                     .deleteRealmIfMigrationNeeded()
                     .build();
             realm = Realm.getInstance(config);
-            on=view.findViewById(R.id.on);
-            off=view.findViewById(R.id.off);
-            check_page=view.findViewById(R.id.check_tutorial);
+            on = view.findViewById(R.id.on);
+            off = view.findViewById(R.id.off);
+            check_page = view.findViewById(R.id.check_tutorial);
 
 
             on.setTag("STOP");
-            blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
-            if (blockList!=null){
-                if (blockList.getStatus().equals("no")||blockList.getStatus().equals("yes")){
+            blockList = realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
+            if (blockList != null) {
+                if (blockList.getStatus().equals("no") || blockList.getStatus().equals("yes")) {
                     off.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     off.setBackgroundResource(R.drawable.left_off);
                     on.setTextColor(getResources().getColor(R.color.white));
@@ -101,9 +101,9 @@ public class On_Off_Page extends Fragment {
             }
             on.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (on.getTag().equals("RUNNING")){
+                    if (on.getTag().equals("RUNNING")) {
 
-                    }else {
+                    } else {
                         off.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                         off.setBackgroundResource(R.drawable.left_off);
                         on.setTextColor(getResources().getColor(R.color.white));
@@ -112,18 +112,18 @@ public class On_Off_Page extends Fragment {
 
                         inflater1 = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         customView = inflater1.inflate(R.layout.activity_main, null);
-                        recyclerView =customView.findViewById(R.id.app_list_recycler);
+                        recyclerView = customView.findViewById(R.id.app_list_recycler);
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                         recyclerView.setLayoutManager(mLayoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
-                        mAdapter= new App_List_Adapter(getActivity(), new ApkInfoExtractor(getActivity()).GetAllInstalledApkInfo());
+                        mAdapter = new App_List_Adapter(getActivity(), new ApkInfoExtractor(getActivity()).GetAllInstalledApkInfo());
                         recyclerView.setAdapter(mAdapter);
                         recyclerView.setFocusable(false);
 
-                        show("Select","","","on");
-                        all_block=customView.findViewById(R.id.block_all_switch);
+                        show("Select", "", "", "on");
+                        all_block = customView.findViewById(R.id.block_all_switch);
                     }
                 }
             });
@@ -137,13 +137,13 @@ public class On_Off_Page extends Fragment {
                         on.setBackgroundResource(R.drawable.right_off);
                         on.setTag("STOP");
                         Snackbar.make(view, "Ending Notification Block", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                        blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
+                        blockList = realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
                         realm.beginTransaction();
-                        if (blockList==null){
-                            BlockList blockList_new=realm.createObject(BlockList.class);
+                        if (blockList == null) {
+                            BlockList blockList_new = realm.createObject(BlockList.class);
                             blockList_new.setPackage_name("BLOCK_ALL");
                             blockList_new.setStatus("not_at_all");
-                        }else {
+                        } else {
                             blockList.setStatus("not_at_all");
                         }
                         realm.commitTransaction();
@@ -163,26 +163,27 @@ public class On_Off_Page extends Fragment {
             int i2 = myString.lastIndexOf(".");
             check_page.setMovementMethod(LinkMovementMethod.getInstance());
             check_page.setText(myString, TextView.BufferType.SPANNABLE);
-            Spannable mySpannable = (Spannable)check_page.getText();
+            Spannable mySpannable = (Spannable) check_page.getText();
             ClickableSpan myClickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
-                    startActivity(new Intent(getContext(),Tutorial_Page.class));
+                    startActivity(new Intent(getContext(), Tutorial_Page.class));
                 }
             };
             mySpannable.setSpan(myClickableSpan, i1, i2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        }catch (Exception e){
-            Log.d("Error Line Number",Log.getStackTraceString(e));
-            if (realm!=null){
+        } catch (Exception e) {
+            Log.d("Error Line Number", Log.getStackTraceString(e));
+            if (realm != null) {
                 realm.close();
             }
         }
         return view;
     }
-    public void show(String title,String msg,String button,String con){
+
+    public void show(String title, String msg, String button, String con) {
         try {
-            switch (con){
+            switch (con) {
                 case "on":
                     MaterialStyledDialog.Builder dialog = new MaterialStyledDialog.Builder(getActivity());
                     dialog.setStyle(Style.HEADER_WITH_ICON)
@@ -199,23 +200,23 @@ public class On_Off_Page extends Fragment {
                             .onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    blockList=realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
+                                    blockList = realm.where(BlockList.class).equalTo("package_name", "BLOCK_ALL").findFirst();
                                     realm.beginTransaction();
-                                    if(all_block.isChecked()) {
+                                    if (all_block.isChecked()) {
                                         Snackbar.make(view, "ALL Notification Blocked", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                                        if (blockList==null){
-                                            BlockList blockList_new=realm.createObject(BlockList.class);
+                                        if (blockList == null) {
+                                            BlockList blockList_new = realm.createObject(BlockList.class);
                                             blockList_new.setPackage_name("BLOCK_ALL");
                                             blockList_new.setStatus("yes");
-                                        }else {
+                                        } else {
                                             blockList.setStatus("yes");
                                         }
-                                    }else {
-                                        if (blockList==null){
-                                            BlockList blockList_new=realm.createObject(BlockList.class);
+                                    } else {
+                                        if (blockList == null) {
+                                            BlockList blockList_new = realm.createObject(BlockList.class);
                                             blockList_new.setPackage_name("BLOCK_ALL");
                                             blockList_new.setStatus("no");
-                                        }else {
+                                        } else {
                                             blockList.setStatus("no");
                                         }
                                     }
@@ -227,17 +228,17 @@ public class On_Off_Page extends Fragment {
                             .setNegativeText("Dismiss")
                             .onNegative(new MaterialDialog.SingleButtonCallback() {
                                 @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which){
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     Log.d("MaterialStyledDialogs", "Do something!");
-                                    }
+                                }
                             })
                             .show();
-                    default:
+                default:
 
             }
-        }catch (Exception e){
-            Log.d("Error Line Number",Log.getStackTraceString(e));
-            if (realm!=null){
+        } catch (Exception e) {
+            Log.d("Error Line Number", Log.getStackTraceString(e));
+            if (realm != null) {
                 realm.close();
             }
         }
@@ -246,12 +247,10 @@ public class On_Off_Page extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (realm!=null){
+        if (realm != null) {
             realm.close();
         }
     }
-
-
 
 
     private void loadNativeAd() {
@@ -295,8 +294,8 @@ public class On_Off_Page extends Fragment {
             });
             // Request an ad
             nativeAd.loadAd();
-        }catch (Exception e){
-            Log.d("Error","facebook Add");
+        } catch (Exception e) {
+            Log.d("Error", "facebook Add");
         }
     }
 
@@ -345,8 +344,8 @@ public class On_Off_Page extends Fragment {
                     nativeAdMedia,
                     nativeAdIcon,
                     clickableViews);
-        }catch (Exception e){
-            Log.d("Error","facebook Add");
+        } catch (Exception e) {
+            Log.d("Error", "facebook Add");
         }
     }
 }

@@ -17,7 +17,7 @@ public class Notification_History extends RealmObject {
     }
 
     public String getNotification_count() {
-        return this.notification_count+"";
+        return this.notification_count + "";
     }
 
     public void setNotification_count(String value) {

@@ -43,9 +43,10 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
     RealmResults<Notification_History> notification_histories;
     Context context1;
     private Realm realm;
+
     public History_List_Adapter2(Context context, List<Object> list) {
         this.mContext = context;
-        stringList=list;
+        stringList = list;
         context1 = context;
         try {
             RealmConfiguration config = new RealmConfiguration.Builder()
@@ -63,31 +64,34 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
                     final_app_list.add((String) s);
                 }
             }*/
-        }catch (Exception e){
-            Log.d("Error Line Number",Log.getStackTraceString(e));
-            if (realm!=null){
+        } catch (Exception e) {
+            Log.d("Error Line Number", Log.getStackTraceString(e));
+            if (realm != null) {
                 realm.close();
             }
-        }finally {
+        } finally {
 
         }
     }
 
 
     public class History_List_Adapter3 extends RecyclerView.ViewHolder {
-        public TextView history_name,history_count;
+        public TextView history_name, history_count;
         public ImageView history_app_icon;
+
         public History_List_Adapter3(View view) {
             super(view);
             history_name = view.findViewById(R.id.history_name);
-            history_count=view.findViewById(R.id.history_number);
+            history_count = view.findViewById(R.id.history_number);
             history_app_icon = view.findViewById(R.id.history_app_icon);
         }
     }
+
     @Override
     public int getItemCount() {
         return stringList.size();
     }
+
     @Override
     public int getItemViewType(int position) {
 
@@ -110,6 +114,7 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
             return -1;
         }
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         /*switch (viewType) {
@@ -194,10 +199,10 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
 
             //viewHolder.textView_App_Package_Name.setText(ApplicationPackageName);
 
-            Notification_History history=realm.where(Notification_History.class).equalTo("apkname",ApplicationPackageName).findFirst();
-            if (history!=null){
+            Notification_History history = realm.where(Notification_History.class).equalTo("apkname", ApplicationPackageName).findFirst();
+            if (history != null) {
                 menuItemHolder.history_count.setText(history.getNotification_count());
-            }else {
+            } else {
                 menuItemHolder.history_count.setText("0");
             }
 
