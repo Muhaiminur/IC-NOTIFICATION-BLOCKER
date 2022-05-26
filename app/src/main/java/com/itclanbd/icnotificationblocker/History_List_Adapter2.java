@@ -2,7 +2,7 @@ package com.itclanbd.icnotificationblocker;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.ads.Ad;
+/*
 import com.facebook.ads.AdChoicesView;
-import com.facebook.ads.AdIconView;
+import com.facebook.ads.AdIconView;*/
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.itclanbd.icnotificationblocker.MODEL.Notification_History;
@@ -25,7 +26,6 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
-import io.realm.Sort;
 
 public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int RECIPE = 0;
@@ -209,7 +209,7 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
 
             menuItemHolder.history_app_icon.setImageDrawable(drawable);
         } else if (itemType == NATIVE_AD) {
-            NativeAdViewHolder nativeAdViewHolder = (NativeAdViewHolder) holder;
+           /* NativeAdViewHolder nativeAdViewHolder = (NativeAdViewHolder) holder;
             NativeAd nativeAd = (NativeAd) stringList.get(position);
 
             AdIconView adIconView = nativeAdViewHolder.adIconView;
@@ -231,7 +231,7 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
             List<View> clickableViews = new ArrayList<>();
             clickableViews.add(btnCTA);
             clickableViews.add(mediaView);
-            nativeAd.registerViewForInteraction(nativeAdViewHolder.container, mediaView, adIconView, clickableViews);
+            nativeAd.registerViewForInteraction(nativeAdViewHolder.container, mediaView, adIconView, clickableViews);*/
         }
     }
     /*private void populateNativeAdView(UnifiedNativeAd nativeAd,
@@ -286,7 +286,7 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
     }*/
 
     private static class NativeAdViewHolder extends RecyclerView.ViewHolder {
-        AdIconView adIconView;
+        //AdIconView adIconView;
         TextView tvAdTitle;
         TextView tvAdBody;
         Button btnCTA;
@@ -298,7 +298,7 @@ public class History_List_Adapter2 extends RecyclerView.Adapter<RecyclerView.Vie
         NativeAdViewHolder(View itemView) {
             super(itemView);
             this.container = itemView;
-            adIconView = itemView.findViewById(R.id.adIconView);
+            //adIconView = itemView.findViewById(R.id.adIconView);
             tvAdTitle = itemView.findViewById(R.id.tvAdTitle);
             tvAdBody = itemView.findViewById(R.id.tvAdBody);
             btnCTA = itemView.findViewById(R.id.btnCTA);

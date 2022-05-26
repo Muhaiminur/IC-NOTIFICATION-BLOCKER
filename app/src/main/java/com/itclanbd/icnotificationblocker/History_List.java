@@ -1,27 +1,22 @@
 package com.itclanbd.icnotificationblocker;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdListener;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
@@ -104,7 +99,7 @@ public class History_List extends Fragment {
         view = inflater.inflate(R.layout.fragment_history__list, container, false);
         try {
             mRecyclerViewItems.addAll(final_app_list);
-            MobileAds.initialize(getActivity(), getString(R.string.admob_app_id));
+            //MobileAds.initialize(getActivity(), getString(R.string.admob_app_id));
             recyclerView = view.findViewById(R.id.history_recycler);
             recyclerView.setFocusable(false);
             recyclerView.setHasFixedSize(true);
@@ -124,7 +119,7 @@ public class History_List extends Fragment {
             mAdView.loadAd(adRequest);
 
 
-            NativeAd nativeAd = new NativeAd(this.getContext(), "234111967234493_234112227234467");
+           /* NativeAd nativeAd = new NativeAd(this.getContext(), "234111967234493_234112227234467");
             nativeAd.setAdListener(new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -165,7 +160,7 @@ public class History_List extends Fragment {
                 }
             });
 
-            nativeAd.loadAd();
+            nativeAd.loadAd();*/
 
         } catch (Exception e) {
             Log.d("Error Line Number", Log.getStackTraceString(e));
